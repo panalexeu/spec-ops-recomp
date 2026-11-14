@@ -69,13 +69,11 @@ Requirements: Linux, clang-20, CMake 3.25+, Ninja, a Vulkan GPU.
 rexglue-sdk patches (`patches/`, on top of upstream `bd833a2`), taken unchanged from
 dishonored-recomp (`0001`–`0004` originally from singularity-recomp):
 
-| Patch | What was wrong | Source |
-|---|---|---|
-| `0001` | On GPUs without `VK_EXT_shader_stencil_export` (NVIDIA), stencil copies between render targets never discarded pixels, so stencil saturated at 255 | Xenia Canary `24f90c0ef` |
-| `0002` | Texture `exp_adjust` was read from the wrong fetch constant word | Upstream PR #490 |
-| `0003` | Depth written by pixel shaders was not remapped for float24 depth buffers; UE3 restores scene depth this way | Xenia Canary `b15fcc73e` |
-| `0004` | The achievement popup existed for the whole session, so the window repainted at the monitor rate | — |
-| `0005` | Occlusion queries (`EVENT_WRITE_ZPD`) were answered with fake counts or stalling host queries; UE3 then culls visible meshes | Port of Xenia Canary's ZPD occlusion queries (`fbd620c22`, `3d233a5b2`) |
+- `0001` Vulkan: discard stencil bit transfer pixels by the source stencil
+- `0002` Vulkan: read texture exp_adjust from fetch constant word 3 (upstream PR #490)
+- `0003` Remap shader oDepth to host [0, 0.5] for float24 depth in FBO mode
+- `0004` Create the achievement toast only while it has something to show
+- `0005` Port Xenia Canary ZPD occlusion queries (Vulkan host render targets)
 
 Config (`config/specops.toml`):
 
