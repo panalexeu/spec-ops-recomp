@@ -1,0 +1,33 @@
+# Spec Ops: The Line runtime configuration (based on dishonored-recomp). CMake copies this file next to
+# the executable on every build (the runtime reads <exe dir>/specops.toml). Edit this copy, not the one in out/.
+#
+# NOTE: path settings (game_data_root, ...) are read BEFORE this file is loaded, so pass
+# --game_data_root on the command line (tools/run.sh does).
+
+gpu_plugin = "xenos"
+
+# EDRAM emulation: "fbo" = host render targets (fast), "fsi" = accurate but slow.
+render_target_path_vulkan = "fbo"
+
+# Vulkan device index from the log (0 = discrete NVIDIA GPU on this laptop).
+vulkan_device = 0
+
+# Present with vsync instead of redrawing the same frame hundreds of times per second.
+vulkan_allow_present_mode_immediate = false
+vulkan_allow_present_mode_mailbox = false
+
+# Xenia Canary's defaults: the CPU does not wait for the GPU after memexport (GPU particles).
+readback_memexport = false
+clear_memory_page_state = false
+
+# Windowed 1280x720 (native resolution).
+fullscreen = false
+window_width = 1280
+window_height = 720
+
+# Run unclipped-draw vertex shaders on the CPU to get full-screen passes' real extent (UE3 lighting).
+execute_unclipped_draw_vs_on_cpu = true
+
+# Occlusion queries (ZPD, SDK patch 0005, ported from Xenia Canary): "fast" asks the host GPU how many
+# pixels of each query passed; "fake" writes made-up counts and never culls. UE3 culls meshes with these.
+occlusion_query = "fast"
