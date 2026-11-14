@@ -1,4 +1,8 @@
-# specops
+<div align=center>
+<img src="imgs/theme.jpg" alt="specops" width="100%">
+</div>
+
+---
 
 Static recompilation of the Xbox 360 version of Spec Ops: The Line (2012) using rexglue-sdk.
 
